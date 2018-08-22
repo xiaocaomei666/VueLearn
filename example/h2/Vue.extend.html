@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>Vue.extend构造器的延伸</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="icon" href="./vue_logo.png">
+    <script src="../../assets/js/vue.js"></script>
+</head>
+<body>
+    <h1>Vue.extend构造器的延伸（扩展实例构造器）</h1> 
+    <hr>
+    <p>一般在项目中，不这么使用。一般是在组件中使用</p>
+    <!-- 标签的绑定 -->
+    <author></author>
+    <!-- id的绑定 -->
+    <div id="author"></div>
+    <script type="text/javascript">
+        var authorExtend = Vue.extend({
+            template:"<p><a :href='authorUrl'>{{authorName}}</a></p>",
+            data:function(){
+                return{
+                    authorName:'小草莓',
+                    authorUrl:'http://www.baidu.com'
+                }
+            }
+        });
+        // 加载构造器 标签的绑定
+        new authorExtend().$mount("author");
+        // 加载构造器 id的绑定
+        new authorExtend().$mount("#author");
+    </script>
+</body>
+</html>

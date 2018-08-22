@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>template制作模板</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="icon" href="./vue_logo.png">
+    <script src="../../assets/js/vue.js"></script>
+</head>
+<body>
+    <h1>template制作模板</h1> 
+    <hr>
+    <div id="app">
+       {{message}}
+    </div>
+    <!-- 第二种 -->
+    <!-- <template id="template2">
+        <h2 style="color:red">我是template标签模板</h2>
+    </template> -->
+
+    <!-- 第三种 -->
+    <script type="x-template" id="template3" src="">
+        <h2 style="color:red">我是script标签模板</h2>
+    </script>
+    <script type="text/javascript">
+        var app = new Vue({
+            el:'#app',
+            data(){
+                return{
+                    message:'信息来啦'
+                }
+            },
+            // 第一种模板方法，直接写在选项里 适合小模板小组件
+            // template:`
+            //     <h2 style="color:red">我是选项模板</h2>
+            // `
+
+            // 第二种模板方法 template标签模板 id直接挂载
+            // template:'#template2'
+
+            // 第二种模板方法 script标签模板 适合外部引用
+            template:'#template3'
+        })
+    </script>
+</body>
+</html>

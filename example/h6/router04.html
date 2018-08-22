@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>Vue-router单页面多路由区域操作</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="icon" href="./vue_logo.png">
+    <script src="../../assets/js/vue.js"></script>
+</head>
+
+<body>
+    <h1>Vue-router单页面多路由区域操作</h1>
+    <hr>
+    <div id="app">
+        <p v-pre>    
+            "<"router-view name="left" style="width:50%;height:350px;background:#008C96;float:left"></router-view> <br>
+            "<"router-view name="right" style="width:50%;height:350px;background:pink;float:left"></router-view></p>
+
+            <p>在同一个页面配置多个路由区域</p>
+            <p>路由配置表如下</p>
+            <p>注意是components,name值对应显示的区域</p>
+            <p v-pre>
+                    {<br>
+                        path: '/', <br>
+                        components: { <br>
+                          default: home,<br>
+                          left: jsLearn,<br>
+                          right: htmlLearn<br>
+                        }<br>
+                      },<br>
+            </p>
+    </div>
+    <script type="text/javascript">
+        var app = new Vue({
+            el: '#app',
+            data() {
+                return {
+                }
+            },
+            methods: {
+            }
+        })
+    </script>
+</body>
+
+</html>

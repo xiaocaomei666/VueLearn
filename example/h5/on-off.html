@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>实例事件</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="icon" href="./vue_logo.png">
+    <script src="../../assets/js/vue.js"></script>
+</head>
+
+<body>
+    <h1>实例事件</h1>
+    <hr>
+    <div id="app">
+        <p>{{number}}</p>
+        <button @click="add">Add</button>
+    </div>
+    <button onclick="reduce()">$on</button>
+    <button onclick="reduceOnce()">$reduceOnce</button>
+    <button onclick="off()">$off</button>
+    <script type="text/javascript">
+        var app = new Vue({
+            el: '#app',
+            data() {
+                return {
+                    number: 1
+                }
+            },
+            methods: {
+                add() {
+                    this.number++
+                }
+            }
+        })
+        // $on  在构造器外部添加事件 
+        // 接受两个参数 一个是函数名 一个是匿名函数
+        app.$on('reduce', function () {
+            console.log('执行了reduce')
+            this.number--
+        })
+        // 外部调用内部事件
+        function reduce() {
+            app.$emit('reduce')
+        }
+
+        // $once 只调用一次
+        app.$once('reduceOnce',function () { 
+            console.log('执行了reduceOnce')
+            this.number--
+        })
+
+        function reduceOnce() { 
+            app.$emit('reduceOnce')
+        }
+
+        function off() { 
+            app.$off('reduce')
+         }
+
+    </script>
+</body>
+
+</html>

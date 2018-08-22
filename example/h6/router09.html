@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>mode的设置和404页面的处理</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="icon" href="./vue_logo.png">
+    <script src="../../assets/js/vue.js"></script>
+</head>
+
+<body>
+    <h1>mode的设置和404页面的处理</h1>
+    <hr>
+    <div id="app">
+        <p>
+                mode的两个值 <br>
+                histroy:当你使用 history 模式时，URL 就像正常的 url，例如 http://jsapng.com/lms/，也好看！<br>
+                hash:默认’hash’值，但是hash看起来就像无意义的字符排列，不太好看也不符合我们一般的网址浏览习惯。<br>
+        </p>
+
+        <p>404页面的设置</p>
+        <p v-pre>
+                { <br>
+
+                       path:'*',<br>
+                    
+                       component:Error<br>
+                    
+                    }<br>
+        </p>
+    </div>
+    <script type="text/javascript">
+        var app = new Vue({
+            el: '#app',
+            data() {
+                return {
+                }
+            },
+            methods: {
+            }
+        })
+    </script>
+</body>
+
+</html>

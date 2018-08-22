@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>Extends Option 扩展选项</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="icon" href="./vue_logo.png">
+    <script src="../../assets/js/vue.js"></script>
+</head>
+
+<body>
+    <h1>Extends Option 扩展选项</h1>
+    <hr>
+    <div id="app">
+        <p> {{count}}</p> 
+        <p> ${count}</p>
+        <button @click="add">Add</button>
+    </div>
+    <script type="text/javascript">
+        // 没有全局的扩展？？
+        Vue.extend({
+            updated() {
+                console.log('全局扩展', this.count)
+            },
+            methods: {
+                // 方法名与原生的方法名字相同，被覆盖
+                add() {
+                    console.log('我是拓展出来的方法')
+                }
+            }
+        })
+
+        var extendOut = {
+            updated() {
+                console.log('外部扩展', this.count)
+            }
+        }
+        var app = new Vue({
+            el: '#app',
+            data() {
+                return {
+                    count: 1
+                }
+            },
+            methods: {
+                add() {
+                    console.log('我是原生的方法')
+                    this.count++
+                }
+            },
+            created() {
+
+            },
+            updated() {
+                console.log('原生更新', this.count)
+            },
+            // 扩展 需要加s 只能有一个对象
+            extends: extendOut,
+            // 改变插值的符号 delimiters是符号的意思 数组形式
+            delimiters: ['${', '}']
+        })
+    </script>
+</body>
+
+</html>

@@ -1,0 +1,219 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>高级DOM操作之鼠标方位判断的组件封装</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="icon" href="./img/js.jpg">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+        }
+
+        #dom_demo {
+            width: 830px;
+            margin: 200px;
+            background-color: seagreen;
+            overflow: hidden;
+        }
+
+        #dom_demo ul {
+            width: 830px;
+            height: 300px;
+        }
+
+        #dom_demo ul li {
+            width: 200px;
+            height: 300px;
+            list-style: none;
+            float: left;
+            margin-right: 10px;
+            position: relative;
+        }
+
+        #dom_demo ul li:last-child {
+            margin-right: 0;
+        }
+
+        #dom_demo ul li img {
+            width: 200px;
+            height: 300px;
+        }
+
+        #dom_demo ul li div {
+            width: 200px;
+            height: 300px;
+            display: flex;
+            flex-direction: row;
+            justify-content: center;
+            align-items: center;
+            position: absolute;
+            background-color: rgba(0, 0, 0, 0.4);
+            color: #fff;
+            font-size: 30px;
+        }
+    </style>
+</head>
+
+<body>
+    <div id="dom_demo">
+        <ul>
+            <li>
+                <img src="./images/1.jpg" alt="">
+                <div>
+                    <span>在一起在一起</span>
+                </div>
+            </li>
+            <li>
+                <img src="./images/2.jpg" alt="">
+                <div>
+                    <span>谢娜发布会</span>
+                </div>
+            </li>
+            <li>
+                <img src="./images/3.jpg" alt="">
+                <div>
+                    <span>美美哒小仙女</span>
+                </div>
+            </li>
+            <li>
+                <img src="./images/4.jpg" alt="">
+                <div>
+                    <span>哇瑟空气真好</span>
+                </div>
+            </li>
+        </ul>
+    </div>
+    <script>
+        let domId = document.getElementById('dom_demo');
+        let domLi = domId.getElementsByTagName('li');
+        // 移入
+        domId.addEventListener('mouseenter', function (e) {
+            let target = e.target;
+            if (target.tagName.toLocaleLowerCase() == 'li') {
+                common(e)
+            }
+        }, true)
+
+
+        function common(e) {
+            let target = e.target;
+            // 获取鼠标的坐标位置
+            let x = e.clientX;
+            let y = e.clientY;
+            console.log('位置', x, y)
+
+            // 获取元素的宽高
+            let domW = target.offsetWidth;
+            let domH = target.offsetHeight;
+            // console.log('宽高', domW, domH)
+
+            // 获取元素四条边距离窗口顶部以及左部的距离
+            let oT = target.offsetTop;
+            let oB = oT + domH;
+            let oL = target.offsetLeft;
+            let oR = oL + domW;
+            // console.log('元素距离',oT, oB, oL, oR)
+
+            // 计算鼠标的位置距离元素上下左右顶部的距离
+            // 四个方向中，值最小的就是就是鼠标进入的方向
+            let differT = Math.abs(y - oT);
+            let differB = Math.abs(y - oB);
+            let differL = Math.abs(x - oL);
+            let differR = Math.abs(x - oR);
+            console.log(differT, differB, differL, differR);
+
+            let direction = Math.min(differT, differB, differL, differR)
+            let type = e.type.toLocaleLowerCase();
+            // 事件分流
+            switch (direction) {
+                // 上
+                case differT: {
+                    console.log('上')
+                    if (type == 'mouseenter') { moveTo('top', target, type) }
+
+                    break;
+                }
+                // 下
+                case differB: {
+                    console.log('下')
+                    if (type == 'mouseenter') { moveTo('bottom', target, type) }
+
+                    break;
+                }
+                // 左
+                case differL: {
+                    console.log('左')
+                    if (type == 'mouseenter') { moveTo('left', target, type) }
+
+                    break;
+                }
+                // 右
+                case differR: {
+                    console.log('右')
+                    if (type == 'mouseenter') {
+                        moveTo('right', target, type)
+                    }
+
+                    break;
+                }
+            }
+        }
+
+        // 移出
+        domId.addEventListener('mouseout', function (e) {
+            if (e.toElement.tagName.toLowerCase() == 'html' && e.target.tagName.toLocaleLowerCase() == 'div') {
+                console.log(e, '上下特殊标记')
+                common(e)
+            } else if (e.toElement.tagName.toLowerCase() == 'body' && e.target.tagName.toLocaleLowerCase() == 'div') {
+                console.log(e, '左右特殊标记')
+                common(e)
+            }
+        }, true)
+
+        function moveTo(direction, target, type) {
+            // 蒙版快速移动到待执行的位置，然后以动画的形式进入
+            // target.parent.children.children[1].style['display'] = 'none'
+
+            if (type == 'mouseenter') {
+                target.children[1].css(direction).enter(direction, type)
+            } else {
+                target.css(direction).enter(direction, type)
+            }
+
+        }
+
+        // 链式操作 快速移动到相应的位置做准备
+        Node.prototype.css = function (direction) {
+            this.style[direction] = '-300px';
+            if (direction == 'top' || direction == 'bottom') {
+                // 上方进入和下方进入      
+                this.style['left'] = 0;
+            } else if (direction == 'right' || direction == 'left') {
+                // 从右方和左方进入
+                this.style['top'] = 0;
+            }
+            return this;
+        }
+
+        // 链式操作 做动画进入
+        Node.prototype.enter = function (direction, type) {
+            // 伪异步操作 需要重新绑定this
+            setTimeout(function () {
+                if (type == 'mouseenter') {
+                    this.style[direction] = 0;
+                } else {
+                    this.style[direction] = '-360px';
+                }
+
+                this.style.transition = '.3s';
+            }.bind(this), 0)
+            return this;
+        }
+    </script>
+</body>
+
+</html>

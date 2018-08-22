@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>路由的过渡动画</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="icon" href="./vue_logo.png">
+    <script src="../../assets/js/vue.js"></script>
+</head>
+
+<body>
+    <h1>路由的过渡动画</h1>
+    <hr>
+    <div id="app">
+        <p>想让路由有过渡动画，需要在router-view标签的外部添加transition标签，标签还需要一个name属性。</p>
+        <p v-pre>
+                '<'transition name="fade" mode="out-in"> <br>
+
+                          '<'router-view ></router-view'>'<br>
+                        
+                        '<'/transition><br>
+        </p>
+        <p>
+                css过渡类名： <br>
+                组件过渡过程中，会有四个CSS类名进行切换，这四个类名与transition的name属性有关，比如name=”fade”,会有如下四个CSS类名： <br>
+                fade-enter:进入过渡的开始状态，元素被插入时生效，只应用一帧后立刻删除。 <br>
+                fade-enter-active:进入过渡的结束状态，元素被插入时就生效，在过渡过程完成后移除。 <br>
+                fade-leave:离开过渡的开始状态，元素被删除时触发，只应用一帧后立刻删除。 <br>
+                fade-leave-active:离开过渡的结束状态，元素被删除时生效，离开过渡完成后被删除。 <br>
+                从上面四个类名可以看出，fade-enter-active和fade-leave-active在整个进入或离开过程中都有效，所以CSS的transition属性在这两个类下进行设置。 <br>
+        </p>
+
+        <p>
+                过渡模式mode： <br>
+                in-out:新元素先进入过渡，完成之后当前元素过渡离开。<br>
+                out-in:当前元素先进行过渡离开，离开完成后新元素过渡进入。
+        </p>
+    </div>
+    <script type="text/javascript">
+        var app = new Vue({
+            el: '#app',
+            data() {
+                return {
+                }
+            },
+            methods: {
+            }
+        })
+    </script>
+</body>
+
+</html>

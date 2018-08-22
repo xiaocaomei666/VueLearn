@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>内置组件 -slot讲解</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="icon" href="./vue_logo.png">
+    <script src="../../assets/js/vue.js"></script>
+</head>
+
+<body>
+    <h1>内置组件 -slot讲解</h1>
+    <hr>
+    <div id="app">
+        <!-- key:value的形式 -->
+        <!-- slot是标签的内容拓展 可以在自定义组件时传递给组件内容 -->
+        <wmx>
+            <span slot="name">{{wmxData.name}}</span>
+            <span slot="job">{{wmxData.job}}</span>
+            <span slot="like">{{wmxData.like}}</span>
+            <span slot="nickName">{{wmxData.nickName}}</span>
+        </wmx>
+    </div>
+    <!-- 模板 接受外部传进来的值 -->
+    <!-- slot功能让组件接收传递过来的值，并在模板中接收显示 -->
+    <template id="wmx">
+        <div>
+            <p>我的名字: <slot name="name"></slot> </p>
+            <p>我的职业: <slot name="job"></slot> </p>
+            <p>我的爱好: <slot name="like"></slot> </p>
+            <p>我的昵称: <slot name="nickName"></slot> </p>
+        </div>
+    </template>
+    <script type="text/javascript">
+        var wmx = {
+            template: '#wmx'
+        }
+        var app = new Vue({
+            el: '#app',
+            data() {
+                return {
+                    wmxData:{
+                        name:'吴茂霞',
+                        job:'前端开发',
+                        like:'睡觉觉',
+                        nickName:'小草莓'
+                    }
+                }
+            },
+            components: {
+                'wmx': wmx
+            },
+            methods: {
+            }
+        })
+    </script>
+</body>
+
+</html>

@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>native 给组件绑定构造器里的原生事件</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="icon" href="./vue_logo.png">
+    <script src="../../assets/js/vue.js"></script>
+</head>
+
+<body>
+    <h1>native 给组件绑定构造器里的原生事件</h1>
+    <hr>
+    <div id="app">
+        <p>{{number}}</p>
+        <button @click="add">构造器Add</button>
+        <btn @click.native="add"></btn>
+    </div>
+    <script type="text/javascript">
+        var btn = {
+            template: '<button>组件Add</button>'
+        }
+        var app = new Vue({
+            el: '#app',
+            components: {
+                "btn": btn
+            },
+            data() {
+                return {
+                    number: 1
+                }
+            },
+            methods: {
+                add(){
+                    this.number++
+                }
+            }
+        })
+    </script>
+</body>
+
+</html>

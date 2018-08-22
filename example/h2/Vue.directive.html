@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>Vue.directive自定义指令</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="icon" href="./vue_logo.png">
+    <script src="../../assets/js/vue.js"></script>
+</head>
+<body>
+    <h1>Vue.directive自定义指令</h1> 
+    <hr>
+    <div id="app">
+        <div v-jswmx="color">{{num}}</div>
+        <p>
+            <button @click="add">Add</button>
+        </p>
+        <div>{{number}}</div>
+        <p>
+            <button @click="desc">减少</button>
+        </p>
+    </div>
+    <!-- 不在Vue的作用域内解绑 -->
+    <p>
+        <button onclick="unbind()">解绑</button>
+    </p>
+    <script type="text/javascript">
+    //解绑所有的绑定
+    function unbind() {
+        // 销毁
+        app.$destroy()
+      }
+  
+    //   自定义指令的使用
+    //   Vue.directive('jswmx',function(el,binding){
+    //       console.log(el,binding)
+    //       el.style="color:"+binding.value
+    //   });
+
+//生命周期
+    Vue.directive('jswmx',{
+        bind(el,binding){
+            console.log('bind,被绑定时调用')
+            el.style="color:"+binding.value
+        },
+        inserted(){
+            console.log('inserted,插入时调用')
+        },
+        update(){
+            console.log('update,更新时调用')
+        },
+        componentUpdated(){
+            console.log('componentUpdated,组件更新时调用')
+        },
+        unbind(){
+            console.log('unbind,解绑时调用')
+        }
+    })
+
+      var app = new Vue({
+          el:'#app',
+          data(){
+              return{
+                  num:10,
+                  number:100,
+                  color:'red'
+                }
+            },
+            methods: {
+                add(){
+                    this.num++
+                },
+                desc(){
+                    this.number--
+                },
+            }
+        })
+        </script>
+</body>
+</html>

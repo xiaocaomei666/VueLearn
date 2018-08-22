@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>路由中的钩子</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="icon" href="./vue_logo.png">
+    <script src="../../assets/js/vue.js"></script>
+</head>
+
+<body>
+    <h1>路由中的钩子</h1>
+    <hr>
+    <div id="app">
+      <p>
+         1.路由配置文件中的钩子函数 (在路由文件中我们只能写一个beforeEnter,就是在进入此路由配置时)
+      </p>
+      <p>
+            { <br>
+                path:'/params/:newsId(\\d+)/:newsTitle',<br>
+                component:Params,<br>
+                beforeEnter:(to,from,next)=>{<br>
+                  console.log('我进入了params模板');<br>
+                  console.log(to);<br>
+                  console.log(from);<br>
+                  next();<br>
+          },
+      </p>
+      <p>
+            三个参数：<br>
+
+            to:路由将要跳转的路径信息，信息是包含在对像里边的。<br>
+            from:路径跳转前的路径信息，也是一个对象的形式。<br>
+            next:路由的控制参数，常用的有next(true)和next(false)。 <br>
+      </p>
+
+      <p>
+         2. 写在模板中的钩子函数 
+      </p>
+      <p>
+            在配置文件中的钩子函数，只有一个钩子beforeEnter，如果我们写在模板中就可以有两个钩子函数可以使用：<br>
+
+            beforeRouteEnter：在路由进入前的钩子函数。<br>
+            beforeRouteLeave：在路由离开前的钩子函数。<br>
+      </p>
+      <p>
+            beforeRouteEnter:(to,from,next)=>{ <br>
+                console.log("准备进入路由模板"); <br>
+                next(); <br>
+              }, <br>
+              beforeRouteLeave: (to, from, next) => { <br>
+                console.log("准备离开路由模板"); <br>
+                next(); <br>
+              }  <br>
+      </p>
+    </div>
+    <script type="text/javascript">
+        var app = new Vue({
+            el: '#app',
+            data() {
+                return {
+                }
+            },
+            methods: {
+            }
+        })
+    </script>
+</body>
+
+</html>

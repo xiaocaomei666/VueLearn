@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>Mixins 混入选项操作</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="icon" href="./vue_logo.png">
+    <script src="../../assets/js/vue.js"></script>
+</head>
+
+<body>
+    <h1>Mixins 混入选项操作</h1>
+    <hr>
+    <div id="app">
+        <p> {{count}}</p>
+        <button @click="add">Add</button>
+    </div>
+    <script type="text/javascript">
+        Vue.mixin({
+            updated() {
+                console.log('全局API混入打印', this.count)
+            },
+            methods: {
+                // 方法名与原生的方法名字相同，被覆盖
+                add() {
+                    console.log('全局混入的方法')
+                }
+            }
+        })
+        // 构造器内部混入 对象形式存在
+        var updateCount = {
+            // 生命周期 更新
+            updated() {
+                console.log('构造器外部变化打印', this.count)
+            }
+        }
+        var app = new Vue({
+            el: '#app',
+            data() {
+                return {
+                    count: 1
+                }
+            },
+            methods: {
+                add() {
+                    console.log('原生的方法')
+                    this.count++
+                }
+            },
+            updated() {
+                console.log('构造器内部监听数据变化', this.count)
+            },
+            // 混入 数组中可以传入多个混入
+            mixins: [updateCount]
+        })
+    </script>
+</body>
+
+</html>

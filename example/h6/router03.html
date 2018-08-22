@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>Vue-router参数传递</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="icon" href="./vue_logo.png">
+    <script src="../../assets/js/vue.js"></script>
+</head>
+
+<body>
+    <h1>Vue-router参数传递</h1>
+    <hr>
+    <div id="app">
+        <ul>
+            <li>第一种方法：通过路由配置表中的name传递</li>
+            <li> &nbsp; &nbsp;&nbsp; 获取方式：$route.name </li>
+            <li> &nbsp;&nbsp;&nbsp; 用途：制作导航</li>
+            <li> &nbsp;&nbsp;&nbsp; 前提是：路由配置中要有name</li>
+            <li> &nbsp;&nbsp;&nbsp; 注意：有子路由时，父亲路由的name是不起作用的</li>
+            <li>第二种方法：用冒号绑定to,这个对象内添加name(值与路由表中的值相同)和params（参数可传递多个）（实际开发用的较多）:to="{name:'home',params:{userName:'小草莓',nickName:'小草莓昵称'}}"</li>
+            <li> &nbsp;&nbsp;&nbsp; 获取方式：$route.params.userName </li>
+        </ul>
+    </div>
+    <script type="text/javascript">
+        var app = new Vue({
+            el: '#app',
+            data() {
+                return {
+                }
+            },
+            methods: {
+            }
+        })
+    </script>
+</body>
+
+</html>

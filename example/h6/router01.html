@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>Vue-router入门</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="icon" href="./vue_logo.png">
+    <script src="../../assets/js/vue.js"></script>
+</head>
+
+<body>
+    <h1>Vue-router入门</h1>
+    <hr>
+    <div id="app">
+        <ul>
+            <li>安装：npm install vue-router --save-dev</li>
+            <li v-pre>
+                <br>
+                    export default new Router({<br/>
+                     routes: [              //配置路由，这里是个数组<br/>
+
+                        {                    //每一个链接都是一个对象<br/>
+                    
+                          path: '/',         //链接路径<br/>
+                    
+                          name: 'Hello',     //路由名称，<br/>
+                    
+                          component: Hello   //对应的组件模板<br/>
+                    
+                        }<br/>
+                     ]<br/>
+                })
+            </li>
+            <li v-pre>router-view闭合标签，带着属性to="/index" </li>
+        </ul>
+    </div>
+    <script type="text/javascript">
+        var app = new Vue({
+            el: '#app',
+            data() {
+                return {
+                }
+            },
+            methods: {
+            }
+        })
+    </script>
+</body>
+
+</html>

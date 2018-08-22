@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>Vue.set全局操作</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="icon" href="./vue_logo.png">
+    <script src="../../assets/js/vue.js"></script>
+</head>
+<body>
+    <h1>Vue.set全局操作</h1> 
+    <hr>
+    <div id="app">
+        {{count}}----{{goods}}
+        <p>Vue.set主要用来操作数组</p>
+        <ul>
+            <li v-for="item in arr">{{item}}</li>
+        </ul>
+    </div>
+    <!-- 原生方法 -->
+    <p>
+        <button onclick="add()">Add</button>
+    </p>
+    <script type="text/javascript">
+        var outData = {
+            count:1,
+            goods:'car',
+            arr:['aaa','bbb','ccc']
+        }
+        function add(){
+            // 三种方法操作count改变数值
+            // Vue.set(outData,'count',2)
+            // app.count++
+            // outData.count++
+
+            // 改变数组的元素的值  改变下标时，vue监听不到变化（js的限制）
+            // app.arr[1] = 'ddd'
+            // 必须使用Vue.set方法来改变数组下标的值
+            Vue.set(app.arr,1,'dddddd')
+        }
+        var app = new Vue({
+            el:'#app',
+            // 构造器外声明数据，并赋值给构造器
+            data:outData
+        })
+    </script>
+</body>
+</html>

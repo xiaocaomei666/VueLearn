@@ -1,0 +1,20 @@
+body{
+    padding: 20px;
+}
+h1{
+    text-align: center;
+}
+h3{
+    color: coral
+}
+a{
+    color: #00878C;
+    display: inline-block;
+    padding: 10px 0;
+    text-decoration: none
+}
+a:active,
+a:link
+a:visited{
+    color: #00878C;
+}

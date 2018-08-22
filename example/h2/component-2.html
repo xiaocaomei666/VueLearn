@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>component组件2 props属性设置</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="icon" href="./vue_logo.png">
+    <script src="../../assets/js/vue.js"></script>
+</head>
+<body>
+    <h1>Vue的组件component-2 props属性设置</h1> 
+    <hr>
+    <div id="app">
+        <!-- 传入组件的值时固定的china -->
+        <!-- <jspig from-here="china"></jspig> -->
+
+        <!-- 传入组件的值动态改变，由data中绑定的值决定 -->
+        <jspig :here="message"></jspig>
+    </div>
+    <script type="text/javascript">
+        var app = new Vue({
+            el:'#app',
+            data(){
+                return{
+                    message:'china'
+                }
+            },
+            // 定义局部组件，可定义多个 要加s
+            components:{
+                "jspig":{
+                    // template:`<h1 style="color:pink">wmxpig来自哪里呢{{fromHere}}</h1>`,
+                    // props数组，不是对象
+                    // 注意存在中划线时，用小驼峰表示
+                    // props:['fromHere'],
+                    template:`<h1 style="color:pink">wmxpig来自哪里呢{{here}}</h1>`,
+                    props:['here']
+                }
+            }
+        })
+    </script>
+</body>
+</html>

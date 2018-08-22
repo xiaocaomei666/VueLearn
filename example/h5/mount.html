@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>实例方法</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="icon" href="./vue_logo.png">
+    <script src="../../assets/js/vue.js"></script>
+</head>
+
+<body>
+    <h1>实例方法</h1>
+    <hr>
+    <div id="app">
+    </div>
+    <button onclick="destroy()">销毁挂载</button>
+    <button onclick="updated()">强制更新</button>
+    <button onclick="tick()">更改数据</button>
+    <script type="text/javascript">
+        var wmx = Vue.extend({
+            template: '<p>{{word}}</p>',
+            data() {
+                return {
+                    word: 'wmx拓展'
+                }
+            },
+            destroyed() {
+                console.log('生命周期---已被销毁')
+            },
+            updated() {
+                console.log('生命周期---已更新')
+            },
+        })
+        var app = new Vue({
+            el: '#app',
+            data() {
+                return {
+                }
+            },
+            methods: {
+            }
+        })
+        // 使用$mount方法把wmx这个拓展挂载在DOM上。生成一个Vue实例
+        var vm = new wmx().$mount('#app')
+        // 使用$destroy()进行销毁挂载 $destroy()后边必须要有括号，没有括号是无用的
+        function destroy() {
+            vm.$destroy()
+        }
+        // 强制更新 $forceUpdate() 更新方法
+        function updated() {
+            vm.$forceUpdate()
+        }
+        // $nextTick()数据修改方法
+        function tick() {
+            vm.word = '修改数据了哦'
+            vm.$nextTick(() => {
+                console.log('word更新成功后，回调成功了')
+            })
+        }
+    </script>
+</body>
+
+</html>

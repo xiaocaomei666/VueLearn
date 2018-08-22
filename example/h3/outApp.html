@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>作用域外部调用构造器里的方法</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="icon" href="./vue_logo.png">
+    <script src="../../assets/js/vue.js"></script>
+</head>
+
+<body>
+    <h1>作用域外部调用构造器里的方法</h1>
+    <hr>
+    <div id="app">
+        <p>{{number}}</p>
+        <button @click="add()">构造器Add</button>
+    </div>
+    <button onclick="app.add(10)">构造器外部Add</button>
+    <script type="text/javascript">
+        var app = new Vue({
+            el: '#app',
+            data() {
+                return {
+                    number: 1
+                }
+            },
+            methods: {
+                add(params) {
+                    console.log(params)
+                    if (params) {
+                        this.number += params
+                    } else {
+                        this.number++
+                    }
+                }
+            }
+        })
+    </script>
+</body>
+
+</html>

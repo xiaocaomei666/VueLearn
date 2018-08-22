@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>Vue-router的重定向-redirect</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="icon" href="./vue_logo.png">
+    <script src="../../assets/js/vue.js"></script>
+</head>
+
+<body>
+    <h1>Vue-router的重定向-redirect</h1>
+    <hr>
+    <div id="app">
+        <p>在路由配置表中配置路径，然后将component替换成redirect，重定向到你想跳转的路径下</p>
+        <p v-pre>
+                {<br>
+
+                          path:'/params/:newsId(\\d+)/:newsTitle',<br>
+                    
+                          component:Params<br>
+                    
+                        },{<br>
+                    
+                          path:'/goback',<br>
+                    
+                          redirect:'/'<br>
+                    
+                        }<br>
+        </p>
+        <p>当重定向的路由需要传递参数时,我们只需要在redirect后边的参数里复制重定向路径的path参数就可以了</p>
+        <p v-pre>
+                	{  path:'/params/:newsId(\\d+)/:newsTitle',  component:Params}, <br>{  path:'/goParams/:newsId(\\d+)/:newsTitle',  redirect:'/params/:newsId(\\d+)/:newsTitle'}
+        </p>
+    </div>
+    <script type="text/javascript">
+        var app = new Vue({
+            el: '#app',
+            data() {
+                return {
+                }
+            },
+            methods: {
+            }
+        })
+    </script>
+</body>
+
+</html>

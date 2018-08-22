@@ -1,0 +1,160 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>百度搜索关键字联想功能</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="icon" href="./baidu_logo.png">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+        }
+
+        .baidu-demo {
+            width: 100%;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            margin-top: 50px;
+        }
+
+        .img {
+            width: 270px;
+            height: 129px;
+        }
+
+        .baidu_input {
+            width: 500px;
+            height: 40px;
+            margin-top: 10px;
+            padding-left: 10px;
+            box-sizing: border-box;
+            border: 1px solid #bbb;
+            border-right: none;
+            font-size: 18px;
+        }
+
+        ul {
+            width: 500px;
+            border: 1px solid #aaa;
+            margin: 0;
+            padding: 0;
+            border-top: none;
+            display: none;
+            box-sizing: border-box;
+        }
+
+        li {
+            list-style: none;
+            padding: 10px;
+            display: block;
+        }
+
+        li:hover {
+            background-color: #008c96;
+            cursor: pointer;
+        }
+
+        .baidu-span {
+            display: inline-block;
+            width: 100px;
+            height: 40px;
+            line-height: 40px;
+            background-color: #008c96;
+            text-align: center;
+            margin: 0;
+            color: #fff;
+            box-sizing: border-box;
+            cursor: pointer;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="baidu-demo">
+        <img src="./baidu_logo.png" alt="百度" class="img">
+        <div>
+            <input type="text" class="baidu_input" id="baidu_input">
+            <span class="baidu-span" onclick="baidu()">百度一下</span>
+            <ul id="baidu_ul">
+            </ul>
+        </div>
+    </div>
+    <script>
+        let baiduInput = document.getElementById('baidu_input');
+        let baiduUl = document.getElementById('baidu_ul');
+        let baiduLi = document.getElementsByTagName('li');
+
+        // 获取百度返回的数据
+        function wmx(res) {
+            // 清空ul
+            baiduUl.innerHTML = '';
+            let resArr = res.s;
+            console.log('拿到百度的数据', resArr)
+            if (resArr.length) {
+                baiduUl.style.display = 'block';
+                resArr.forEach(item => {
+                    // 动态创建标签，并将数据赋给li
+                    let cLi = document.createElement('li');
+                    baiduUl.appendChild(cLi);
+                    cLi.innerText = item
+                })
+            } else {
+                baiduUl.style.display = 'none';
+            }
+        }
+
+        // 监听键盘抬起事件
+        baiduInput.onkeyup = function () {
+            // 百度响应事件
+            // https://sp0.baidu.com/5a1Fazu8AA54nxGko9WTAnF6hhy/su?wd=444&cb=wmx
+
+            // 动态创建script标签，用于跨域请求
+            let cScript = document.createElement('script');
+            document.body.appendChild(cScript);
+
+            // 动态改变传递的参数
+            cScript.src = 'https://sp0.baidu.com/5a1Fazu8AA54nxGko9WTAnF6hhy/su?wd=' + this.value + '&cb=wmx';
+        }
+
+        // 跳转到百度
+        function baidu(params) {
+            if (params) {
+                window.location.href = "https://www.baidiu.com/s?wd=" + params
+            } else {
+                window.location.href = "https://www.baidiu.com/s?wd=" + baiduInput.value
+            }
+        }
+
+        // 监听点击事件
+        // baidu_ul.addEventListener('mouseover', function () {
+        //     for (let i = 0; i < baiduLi.length; i++) {
+        //         baiduLi[i].onclick = function () {
+        //             baidu(this.innerText)
+        //         }
+        //     }
+        // })
+
+        // 事件委托 监听子元素的点击事件 或者被点击的对象
+        baidu_ul.addEventListener('click',function(e){
+                console.log(e.target.innerHTML)
+                baidu(e.target.innerHTML)
+
+        },true)
+        
+
+
+        // 监听键盘回车事件
+        baiduInput.onkeydown = function (e) {
+            if (e.keyCode == 13) {
+                baidu();
+            }
+        }
+    </script>
+    <!-- <script src="https://sp0.baidu.com/5a1Fazu8AA54nxGko9WTAnF6hhy/su?wd=444&cb=wmx"></script> -->
+</body>
+
+</html>

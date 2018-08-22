@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>Mutations修改状态</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="icon" href="./vue_logo.png">
+    <script src="../../assets/js/vue.js"></script>
+</head>
+
+<body>
+    <h1>Mutations修改状态</h1>
+    <hr>
+    <div id="app">
+        <p v-pre>
+                $store.commit('add')
+        </p>
+        <p>如何传值呢？？</p>
+        <p>
+                只需要在Mutations里再加上一个参数，并在commit的时候传递就就可以了
+        </p>
+        
+
+
+        <p>模板获取Mutations方法</p>
+        <p>
+                要达到这种写法，只需要简单的两部就可以了： <br>
+
+                在模板count.vue里用import 引入我们的mapMutations：  <br>
+                
+                
+                import { mapState,mapMutations } from 'vuex';  <br>
+                
+                在模板的script标签里添加methods属性，并加入mapMutations  <br>
+                
+                
+               
+                
+                methods:mapMutations([  <br>
+                
+                        'add','reduce'  <br>
+                
+                ]),  <br>
+                
+                通过上边两部，我们已经可以在模板中直接使用我们的reduce或者add方法了，就像下面这样。  <br>
+
+                '<'button @click="reduce">-'<'/button> <br>
+        </p>
+    </div>
+    <script type="text/javascript">
+        var app = new Vue({
+            el: '#app',
+            data() {
+                return {
+                }
+            },
+            methods: {
+            }
+        })
+    </script>
+</body>
+
+</html>

@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>Vuex的安装</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="icon" href="./vue_logo.png">
+    <script src="../../assets/js/vue.js"></script>
+</head>
+
+<body>
+    <h1>Vuex的安装</h1>
+    <hr>
+    <div id="app">
+        <div>
+                1.利用npm包管理工具，进行安装 vuex。在控制命令行中输入下边的命令就可以了。<br>
+            
+                npm install vuex --save<br>
+                
+                需要注意的是这里一定要加上 –save，因为你这个包我们在生产环境中是要使用的。<br>
+                
+                2.新建一个vuex文件夹（这个不是必须的），并在文件夹下新建store.js文件，文件中引入我们的vue和vuex。<br>
+                
+                import Vue from 'vue';<br>
+                
+                import Vuex from 'vuex';<br>
+                
+                3.使用我们vuex，引入之后用Vue.use进行引用。<br>
+                
+                Vue.use(Vuex);<br>
+                
+                通过这三步的操作，vuex就算引用成功了，接下来我们就可以尽情的玩耍了。
+        </div>
+
+        <div>
+            在store.js中，声明常量对象state(作为状态管理器) <br>
+            并且需要将其暴露出去 export default new Vuex.Store({state})让外部可以引用<br>
+            如何使用呢？？<br>
+            1. 引入store文件 <br>
+            <p v-pre>2. {{$store.state.count}}</p>
+        </div>
+
+        <div>
+            mutations 改变的意思（改变state的值）里面写的是方法<br>
+            并且需要将其暴露出去 export default new Vuex.Store({state,mutations})<br>
+            <p v-pre>$store.commit('add')</p>
+        </div>
+
+    </div>
+    <script type="text/javascript">
+        var app = new Vue({
+            el: '#app',
+            data() {
+                return {
+                }
+            },
+            methods: {
+            }
+        })
+    </script>
+</body>
+
+</html>

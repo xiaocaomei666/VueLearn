@@ -1,0 +1,20 @@
+*{
+    margin: 0;
+    padding: 0;
+}
+body{
+    overflow-x: hidden
+}
+p{
+    color: #fff;
+    font-size: 16px;
+}
+li{
+    color: #fff;
+    font-size: 14px;
+    padding: 10px;
+}
+#canvas{
+    background: #000;
+    display: block;
+}

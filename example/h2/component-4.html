@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>component组件4 Component标签</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="icon" href="./vue_logo.png">
+    <script src="../../assets/js/vue.js"></script>
+</head>
+<body>
+    <h1>Vue的组件component-4 Component标签</h1> 
+    <hr>
+    <div id="app">
+        <!-- 动态使用组件 -->
+        <component v-bind:is="who"></component>
+        <button @click="changeComponent">changeComponent</button>
+    </div>
+    <script type="text/javascript">
+        var componentA = {
+            template:`<div style="color:red">componentA</div>`
+        }
+        var componentB = {
+            template:`<div style="color:orange">componentB</div>`
+        }
+        var componentC = {
+            template:`<div style="color:yellow">componentC</div>`
+        }
+        var app = new Vue({
+            el:'#app',
+            // 根据data值来决定不同的组件
+            data:{
+                who:'componentC'
+            },
+            // 组件挂载
+            components:{
+               "componentA":componentA,
+               "componentB":componentB,
+               "componentC":componentC
+            },
+            methods:{
+                changeComponent(){
+                    if(this.who === "componentA"){
+                        this.who = 'componentB'
+                    }else if(this.who === "componentB"){
+                        this.who = 'componentC'
+                    }else{
+                        this.who = 'componentA'
+                    }
+                }
+            }
+        })
+    </script>
+</body>
+</html>

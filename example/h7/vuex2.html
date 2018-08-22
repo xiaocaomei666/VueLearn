@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>state访问状态对象</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="icon" href="./vue_logo.png">
+    <script src="../../assets/js/vue.js"></script>
+</head>
+
+<body>
+    <h1>state访问状态对象</h1>
+    <hr>
+    <div id="app">
+        <p>
+            一、通过computed的计算属性直接赋值
+        </p>
+        <p v-pre>
+            computed:{ <br>     count(){ <br>         return this.$store.state.count; <br>     } <br> } <br>
+        </p>
+
+        <p>
+            二、通过mapState的对象来赋值
+        </p>
+        <p v-pre>
+            我们首先要用import引入mapState。<br> import {mapState} from 'vuex';<br> 然后还在computed计算属性里写如下代码：
+
+            <br> computed:mapState({
+
+            <br>         count:state=>state.count
+            <br> })
+
+            <br> 这里我们使用ES6的箭头函数来给count赋值。
+
+            <br>
+        </p>
+
+        <p>
+            三、通过mapState的数组来赋值
+        </p>
+        <p v-pre>
+            computed:mapState(["count"])
+        </p>
+    </div>
+    <script type="text/javascript">
+        var app = new Vue({
+            el: '#app',
+            data() {
+                return {
+                }
+            },
+            methods: {
+            }
+        })
+    </script>
+</body>
+
+</html>

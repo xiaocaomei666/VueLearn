@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>alias别名的使用</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="icon" href="./vue_logo.png">
+    <script src="../../assets/js/vue.js"></script>
+</head>
+
+<body>
+    <h1>alias别名的使用</h1>
+    <hr>
+    <div id="app">
+        <p>实现类似重定向的效果</p>
+        <p>redirect和alias的区别 <br>
+                redirect：仔细观察URL，redirect是直接改变了url的值，把url变成了真实的path路径。<br>
+                alias：URL路径没有别改变，这种情况更友好，让用户知道自己访问的路径，只是改变了router-view中的内容。</p>
+
+        <p v-pre>
+                {<br>
+
+                        path: '/hi1',<br>
+                    
+                        component: Hi1,<br>
+                    
+                        alias:'/jspang'<br>
+                    
+                    }<br>
+        </p>
+        <p>别名请不要用在path为’/’中，如下代码的别名是不起作用的。</p>
+        <p>
+                {  path: '/',  component: Hello,  alias:'/home'}
+        </p>
+        <p>别名也可以传递参数 :</p>
+        <p> alias: '/toHome/:user/:phone(\\d+)'</p>
+    </div>
+    <script type="text/javascript">
+        var app = new Vue({
+            el: '#app',
+            data() {
+                return {
+                }
+            },
+            methods: {
+            }
+        })
+    </script>
+</body>
+
+</html>

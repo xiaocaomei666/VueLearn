@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>actions异步修改状态</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="icon" href="./vue_logo.png">
+    <script src="../../assets/js/vue.js"></script>
+</head>
+
+<body>
+    <h1>actions异步修改状态</h1>
+    <hr>
+    <div id="app">
+        <p>actions是异步的改变state状态，而Mutations是同步改变状态</p>
+        <p>
+            在store.js中声明actions <br> 
+            actions是可以调用Mutations里的方法的，在actions里调用add和reduce两个方法。 <br>
+            const actions ={    <br>
+                 addAction(context){     <br>    
+                    context.commit('add',10)<br>
+                },     <br>
+            reduceAction({commit}){        <br> 
+                commit('reduce') <br>    
+            } }<br>
+        </p>
+
+        <p>
+                context：上下文对象，这里你可以理解称store本身。 <br>
+                {commit}：直接把commit对象传递过来，可以让方法体逻辑和代码更清晰明了。
+        </p>
+
+        <p>引入和使用方式和mutation相似</p>
+    </div>
+    <script type="text/javascript">
+        var app = new Vue({
+            el: '#app',
+            data() {
+                return {
+                }
+            },
+            methods: {
+            }
+        })
+    </script>
+</body>
+
+</html>

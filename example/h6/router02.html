@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>Vue-router配置子路由</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="icon" href="./vue_logo.png">
+    <script src="../../assets/js/vue.js"></script>
+</head>
+
+<body>
+    <h1>Vue-router配置子路由</h1>
+    <hr>
+    <div id="app">
+        <ul>
+            <li>router-view闭合便签</li>
+            <li>需要在父路由上配置子路由</li>
+            <li>
+                    { <br>
+                        path: '/start',<br>
+                        name: 'start',<br>
+                        component: start,<br>
+                        children: [<br>
+                          {<br>
+                            path: '/',<br>
+                            component: start<br>
+                          }, {<br>
+                            path: 'js',<br>
+                            component: jsLearn<br>
+                          }, {<br>
+                            path: 'html',<br>
+                            component: htmlLearn<br>
+                          }<br>
+                        ]<br>
+            </li>
+        </ul>
+    </div>
+    <script type="text/javascript">
+        var app = new Vue({
+            el: '#app',
+            data() {
+                return {
+                }
+            },
+            methods: {
+            }
+        })
+    </script>
+</body>
+
+</html>

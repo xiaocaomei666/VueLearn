@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>Vue-router利用url传递参数</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="icon" href="./vue_logo.png">
+    <script src="../../assets/js/vue.js"></script>
+</head>
+
+<body>
+    <h1>Vue-router利用url传递参数</h1>
+    <hr>
+    <div id="app">
+        <p>冒号的形式传递参数</p>
+        <p>在路由配置表中，在参数path结尾以冒号形式传递参数</p>
+        <p v-pre>
+                {    path:'/params/:newsId/:newsTitle',     component:Params}
+        </p>
+        <p>在router-link跳转时,进行url传递对应的参数</p>
+        <p v-pre>
+            "<"router-link to="/params/198/jspang website is very good">params"<"/router-link>"
+        </p>
+        <p>接受的方式:$route.params.newsId</p>
+
+        <p>当指定的参数必须是数字时，可在路由表中配置正则表达式</p>
+        <p v-pre>
+                加入正则需要在路由配置文件里（/src/router/index.js）以圆括号的形式加入。<br>
+                
+                path:'/params/:newsId(\\d+)/:newsTitle',      <br>
+                
+                加入了正则，我们再传递数字之外的其他参数，params.vue组件就没有办法接收到。<br>
+        </p>
+    </div>
+    <script type="text/javascript">
+        var app = new Vue({
+            el: '#app',
+            data() {
+                return {
+                }
+            },
+            methods: {
+            }
+        })
+    </script>
+</body>
+
+</html>

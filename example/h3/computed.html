@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>computed Option  计算选项</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="icon" href="./vue_logo.png">
+    <script src="../../assets/js/vue.js"></script>
+</head>
+<body>
+    <h1>computed Option  计算选项</h1> 
+    <hr>
+    <div id="app">
+        <p>作用：主要是对原始数据进行改造输出。包括格式的编辑，大小写转换，顺序重排，添加符号等。为了不污染数据而在computed选项中的改造</p>
+        <p>{{newPrice}}</p>
+        <ul>
+            <li v-for="item in newsList">新闻标题：{{item.title}}---{{item.date}}</li>
+        </ul>
+        <ul>
+           <li v-for="item in reversNews">新闻标题：{{item.title}}---{{item.date}}</li>
+        </ul>
+    </div>
+    <script type="text/javascript">
+        var newsList = [
+            {title:'新闻头条1',date:'2018/7/7'},
+            {title:'新闻头条2',date:'2018/7/8'},
+            {title:'新闻头条3',date:'2018/7/9'},
+            {title:'新闻头条4',date:'2018/7/10'},
+            {title:'新闻头条5',date:'2018/7/11'}
+        ]
+        var app = new Vue({
+            el:'#app',
+            data(){
+                return{
+                    price:100,
+                    newsList:newsList
+                }
+            },
+            // 计算选项 重新定义新的值newPrice，不污染原始值price
+            computed:{
+                // 输出格式转换
+                newPrice:function(){
+                    return this.price = '￥' + this.price + '元'
+                },
+                // 倒叙排列
+                reversNews:function(){
+                    return this.newsList.reverse()
+                }
+            },
+            methods: {
+                
+            }
+        })
+    </script>
+</body>
+</html>

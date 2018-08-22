@@ -1,0 +1,143 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>Canvas粒子连线</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="../assets/css/canvas.css">
+</head>
+
+<body>
+    <!--Canvas粒子连线  -->
+    <!-- <p>canvas：画布</p>
+     <p>canvas的作用:
+         <ul>
+             <li>少用js去操纵DOM节点,提升页面的性能</li>
+             <li>提供了很多方法来渲染数据（大数据可视化）</li>
+             <li>可做游戏(仅限于小游戏和比较简单的单机游戏)</li>
+         </ul>
+        </p>
+     <P>如何使用canvas</P>
+     <ul>
+        <li>一支画笔，使用笔驱动画画的方法</li>
+     </ul> -->
+    <!-- <p>粒子连线</p>
+     <ul>
+         <li>面向对象，最适合做canvas开发  ES5</li>
+         <li>面向对象是基于一类事物的开发，在具有一类具有相同特征的事物上进行一些方法的拓展或者继承
+         </li>
+     </ul> -->
+    <canvas id="canvas"></canvas>
+    <script>
+        // 业务 数据 结构 算法分开，实现模块化开发
+        // 初始化
+        // 借助canvas的方法进行创建粒子
+        // 粒子进行随机移动
+        // 粒子进行连线
+
+        /*
+         构造函数 函数名称首字母大写
+         存放自己的私有属性
+        */
+        function Starfunc() {
+            // 画笔 创建2d绘画环境
+            this.cxt = canvas.getContext('2d')
+            // 存储粒子的大小
+            this.num = 200
+            this.data = []
+        }
+        // 公共方法（可复用） 放在prototype中
+        Starfunc.prototype = {
+            // 初始化
+            init: function () {
+                // 使得画布与浏览器等宽等高
+                canvas.width = window.innerWidth;
+                canvas.height = window.innerHeight;
+                this.cW = canvas.width;
+                this.cH = canvas.height;
+                // 生成粒子的数据
+                for (var i = 0; i < this.num; i++) {
+                    this.data[i] = {
+                        // 随机位置(运动的初始值)
+                        x: Math.random() * this.cW,
+                        y: Math.random() * this.cH,
+                        // 自定义增量随机
+                        dx: Math.random() * 0.6 - 0.3,
+                        dy: Math.random() * 0.6 - 0.3,
+                    }
+                    this.drawCircle(this.data[i].x, this.data[i].y)
+                }
+            },
+            // 绘制粒子
+            drawCircle: function (x, y) {
+                // 标准的canvas绘画流程
+                var cxt = this.cxt;
+                cxt.save()//保存路径
+                cxt.fillStyle = 'pink' //填充颜色
+                cxt.beginPath()//开始路径
+                cxt.arc(x, y, 3, 0, Math.PI * 2, false)// 圆心 半径 360度 顺时针
+                cxt.closePath()//闭合路径 
+                cxt.fill()//画实心圆
+                cxt.restore()//释放路径
+            },
+            // 粒子随机移动
+            // 描点：不断的往粒子的运动方向（合力）绘制，之前绘制的清除掉
+            moveCircle: function () {
+                // 清除之前的画布
+                this.cxt.clearRect(0, 0, this.cW, this.cH)
+                for (var i = 0; i < this.num; i++) {
+                    this.data[i].x += this.data[i].dx;
+                    this.data[i].y += this.data[i].dy;
+                    // 碰撞检测 边界值判断
+                    if (this.data[i].x > this.cW || this.data[i].x < 0) {
+                        // 往运动的相反方向走
+                        this.data[i].dx = -this.data[i].dx;
+                    }
+                    if (this.data[i].j > this.cH || this.data[i].y < 0) {
+                        this.data[i].dy = -this.data[i].dy;
+                    }
+                    this.drawCircle(this.data[i].x, this.data[i].y)
+                    // 用勾股定理判断是否连线
+                    for (var j = i + 1; j < this.num; j++) {
+                        if (Math.pow(this.data[i].x - this.data[j].x, 2) + Math.pow(this.data[i].y - this.data[j].y, 2) <= 50 * 50) {
+                            this.drawLine(this.data[i].x, this.data[i].y, this.data[j].x, this.data[i].y)
+                        }
+                    }
+                }
+            },
+            // 画线
+            drawLine: function (x1, y1, x2, y2) {
+                // 标准的canvas绘画流程
+                var cxt = this.cxt;
+                // 线性渐变
+                var color = cxt.createLinearGradient(x1, y1, x2, y2)
+                color.addColorStop(0, '#333')
+                // color.addColorStop(.5, '#378')
+                // color.addColorStop(1, '#c03')
+
+                cxt.save()//保存路径
+                cxt.fillStyle = color //填充颜色
+                cxt.beginPath()//开始路径
+                // cxt.moveTo(x1, y1) //起点
+                // cxt.lineTo(x2, y2) //终点
+                cxt.arc(x1, y1, 1, 0, Math.PI * 2, false)// 圆心 半径 360度 顺时针
+                cxt.closePath()//闭合路径 
+                cxt.fill()//画实心圆
+                cxt.restore()//释放路径
+            }
+        }
+
+        // 实例化对象的创建 生成this
+        // this指向实例化对象。构造函数和原型方法沟通的桥梁
+        var star = new Starfunc();
+        star.init()
+        setInterval(function () {
+            star.moveCircle()
+            star.drawLine()
+        }, 1000)
+    </script>
+</body>
+
+</html>

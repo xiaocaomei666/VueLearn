@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>component组件3 父子组件关系</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="icon" href="./vue_logo.png">
+    <script src="../../assets/js/vue.js"></script>
+</head>
+<body>
+    <h1>Vue的组件component-3 父子组件关系</h1> 
+    <hr>
+    <div id="app">
+        <jspig></jspig>
+    </div>
+    <script type="text/javascript">
+        // 在构造器外部声明局部组件
+        // 子组件必须在父组件中声明和挂载
+        var cityComponent = {
+            template:`<h1 style="color:pink">我是city子模板</h1>`
+        }
+        var jspigComponent = {
+            template:`
+            <div>
+               <h1 style="color:red">我是jspig父模板</h1>
+               <city></city>
+            </div>
+
+            `,
+            components:{
+                "city":cityComponent
+            }
+        }
+
+        var app = new Vue({
+            el:'#app',
+            components:{
+                "jspig":jspigComponent
+            }
+        })
+    </script>
+</body>
+</html>
