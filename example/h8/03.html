@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>变量的解构赋值</title>
+</head>
+
+<body>
+    <p>
+        1. 解构：ES6允许按照一定模式，从数组和对象中提取值，对变量进行赋值，这被称为解构
+    </p>
+    <p>
+        1. 数组的解构 <br> 从数组中提取值，按照位置的对象关系对变量赋值 <br> 数组解构需要注意结构一致 <br> 解构赋值是允许你使用默认值的,需要注意的是undefined和null的区别 <br> undefined相当于什么都没有
+        <br> null相当于有值，但值为null <br> let [a,b,c]=[1,2,3];
+    </p>
+    <p>2. 对象的解构赋值 <br> let {foo,bar} = {foo:'JSPang',bar:'技术胖'}; <br> console.log(foo+bar); //控制台打印出了“JSPang技术胖” <br> 注意：对象的解构与数组有一个重要的不同。数组的元素是按次序排列的，变量的取值由它的位置决定；而对象的属性没有次序，变量必须与属性同名，才能取到正确的值。
+        <br> 如果在解构之前就定义了变量，这时候你再解构会出现问题。下面是错误的代码，编译会报错。<br> let foo; <br>{foo} ={foo:'JSPang'};<br> console.log(foo); <br>要解决报错，使程序正常，我们这时候只要在解构的语句外边加一个圆括号就可以了。<br>        let
+        foo;<br> ({foo} ={foo:'JSPang'});<br> console.log(foo); <br>//控制台输出jspang
+    </p>
+
+    <p>3. 字符串的解构<br> 字符串也可以解构，这是因为，此时字符串被转换成了一个类似数组的对象。 <br> const [a,b,c,d,e,f]="ABCDEF"; <br> console.log(a);
+        <br> console.log(b);
+        <br> console.log(c);
+        <br> console.log(d);
+        <br> console.log(e);
+        <br> console.log(f);
+        <br>
+    </p>
+</body>
+
+</html>

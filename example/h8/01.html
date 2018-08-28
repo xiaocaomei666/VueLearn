@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>ES6的开发环境搭建</title>
+</head>
+<body>
+    <p>命令</p>
+    <p>1. 初始化项目 npm init -y</p>
+    <p>2. 全局安装转化工具 npm install -g babel-cli</p>
+    <p>3. 本地安装babel-preset-es2015 和 babel-cli这两个转换包  npm install --save-dev babel-preset-es2015 babel-cli</p>
+    <p>
+        新建.babelrc <br>
+
+在根目录下新建.babelrc文件，并打开录入下面的代码  <br>
+<br>
+{  <br>
+"presets":[  <br>
+"es2015" <br>
+], <br>
+"plugins":[] <br>
+} <br>
+json这个文件我们建立完成后，现在可以在终端输入的转换命令了，这次ES6成功转化为ES5的语法。 <br>
+
+babel src/index.js -o dist/index.js <br>
+    </p>
+    <p>简化转化命令：<br>
+
+        在学习vue 的时候，可以使用npm run build 直接利用webpack进行打包，在这里也希望利用这种方式完成转换。打开package.json文件，把文件修改成下面的样子。 <br>
+        <br>  
+        {<br>
+        "name": "es6",<br>
+        "version": "1.0.0",<br>
+        "description": "",<br>
+        "main": "index.js",<br>
+        "scripts": {<br>
+        "build": "babel src/index.js -o dist/index.js"<br>
+        },<br>
+        "keywords": [],<br>
+        "author": "",<br>
+        "license": "ISC",<br>
+        "devDependencies": {<br>
+        "babel-cli": "^6.24.1",<br>
+        "babel-preset-es2015": "^6.24.1"<br>
+        }<br>
+        }<br>
+        json修改好后，以后我们就可以使用 npm run build 来进行转换了。</p><br>
+</body>
+</html>
