@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>js性能优化之文档片段createDocumentFragment</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="icon" href="./img/js.jpg">
+    <style>
+    </style>
+</head>
+
+<body>
+    <ul id="ulDemo">
+
+    </ul>
+    <script>
+        let element = document.getElementById('ulDemo');
+        let fragment = document.createDocumentFragment();
+        let bowserArray = ['Firefox', 'Chrome', 'Opera',
+            'Safari', 'Internet Explorer'];
+        bowserArray.forEach(item => {
+            let li = document.createElement('li')
+            li.textContent = item
+            fragment.appendChild(li)// 此处往文档片段插入子节点，不会引起回流 （相当于打包操作）
+        })
+        element.appendChild(fragment)// 将打包好的文档片段插入ul节点，只做了一次操作
+        console.log(element)
+    </script>
+</body>
+
+</html>
