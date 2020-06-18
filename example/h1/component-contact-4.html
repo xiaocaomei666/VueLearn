@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <title>父组件往子组件传递：provide 和 inject</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <link rel="icon" href="./vue_logo.png" />
+    <script src="../../assets/js/vue.js"></script>
+  </head>
+  <body>
+    <h1>父组件往子组件传递：provide 和 inject</h1>
+    <hr />
+    <div id="app">
+      <c1></c1>
+    </div>
+
+    <script type="text/javascript">
+      var c2 = {
+        template: `<div>
+            <p>我是c2组件</p>
+            <p v-if="appData">接收app组件传递的数据：{{ appData }}</p>  
+            </div>`,
+        inject: ['appData']
+      }
+
+      var c1 = {
+        template: `<div>
+            <p>我是c1组件</p>
+            <c2></c2>
+            <p v-if="appData">接收app组件传递的数据：{{ appData }}</p>  
+            </div>`,
+        inject: ['appData'],
+        components: {
+          c2
+        }
+      }
+
+      var app = new Vue({
+        el: '#app',
+        // 定义局部组件，可定义多个 要加s
+        components: {
+          c1
+        },
+        data() {
+          return {}
+        },
+        provide: {
+          appData: '我是app的内容'
+        }
+      })
+    </script>
+  </body>
+</html>

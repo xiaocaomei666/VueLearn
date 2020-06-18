@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <title>内置组件 -slot讲解2 -- 封装按钮</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <link rel="icon" href="./vue_logo.png" />
+    <style>
+      .default {
+        padding: 0 10px;
+        height: 40px;
+        color: #000;
+        font-size: 18px;
+        background-color: transparent;
+        border: 1px solid #3d3d3d;
+        box-sizing: border-box;
+        line-height: 40px;
+      }
+      .success {
+        color: #fff;
+        background-color: green;
+        border: 1px solid green;
+      }
+      .error {
+        color: #fff;
+        background-color: red;
+        border: 1px solid red;
+      }
+    </style>
+    <script src="../../assets/js/vue.js"></script>
+  </head>
+
+  <body>
+    <h1>内置组件 -slot讲解 -- 封装按钮</h1>
+    <hr />
+    <div id="app">
+      <!-- key:value的形式 -->
+      <!-- slot是标签的内容拓展 可以在自定义组件时传递给组件内容 -->
+      <wmx type="default">默认按钮</wmx>
+      <wmx type="success">成功按钮</wmx>
+      <wmx type="error">成功按钮</wmx>
+    </div>
+    <!-- 模板 接受外部传进来的值 -->
+    <!-- slot功能让组件接收传递过来的值，并在模板中接收显示 -->
+    <template id="wmx">
+        <button class="default" :class="type">
+            <slot>按钮</slot>
+        </button>
+    </template>
+    <script type="text/javascript">
+      var wmx = {
+        template: '#wmx',
+        props:['type']
+      }
+      var app = new Vue({
+        el: '#app',
+        data() {
+          return {
+              
+          }
+        },
+        components: {
+          wmx
+        }
+      })
+    </script>
+  </body>
+</html>

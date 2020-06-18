@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <title>$parent 和 $children</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <link rel="icon" href="./vue_logo.png" />
+    <script src="../../assets/js/vue.js"></script>
+  </head>
+  <body>
+    <h1>$parent 和 $children</h1>
+    <hr />
+    <div id="app">
+      <h2>{{ msg }}</h2>
+      <c1 ref="c1"></c1>
+      <c2 ref="c2"></c2>
+    </div>
+
+    <script type="text/javascript">
+      var c2 = {
+        name: 'c2',
+        template: `<div>
+            <p>我是c2组件</p>
+            <p>{{ msg }}</p>
+            </div>`,
+        data() {
+          return {
+            msg: 'c2 msg',
+            reportMsg: 'c2 report'
+          }
+        },
+        created() {
+          // 读取父组件的数据
+          this.msg = this.$parent.c1Msg
+        }
+      }
+
+      var c1 = {
+        name: 'c1',
+        template: `<div>
+            <p>我是c1组件</p>
+            <p>{{ msg }}</p>
+            </div>`,
+        data() {
+          return {
+            msg: 'c1 msg',
+            reportMsg: 'c1 report'
+          }
+        },
+        created() {
+          // 读取父组件的数据
+          this.msg = this.$parent.c1Msg
+        }
+      }
+
+      var app = new Vue({
+        el: '#app',
+        // 定义局部组件，可定义多个 要加s
+        components: {
+          c1,
+          c2
+        },
+        data() {
+          return {
+            msg: 'app的数据',
+            c1Msg: 'app => c1的数据',
+            c2Msg: 'app => c2的数据'
+          }
+        },
+        mounted() {
+          // 读取子组件数据，注意$children子组件的排序是不安全的
+          console.log(this.$children[0].reportMsg) // c1 report
+
+          // 读取命名子组件数据
+          console.log(this.$refs.c2.reportMsg) // c2 report
+
+          //从根组件查找组件数据
+          console.log(this.$root.$children[0].reportMsg) // c1 report
+        }
+      })
+    </script>
+  </body>
+</html>

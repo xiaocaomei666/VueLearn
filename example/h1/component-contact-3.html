@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <title>中央事件总线 bus：主要是在兄弟组件之间</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <link rel="icon" href="./vue_logo.png" />
+    <script src="../../assets/js/vue.js"></script>
+  </head>
+  <body>
+    <h1>中央事件总线 bus：主要是在兄弟组件之间</h1>
+    <hr />
+    <div id="app">
+      <c1></c1>
+      <c2></c2>
+    </div>
+
+    <script type="text/javascript">
+    // 中央事件总线
+    var bus = new Vue()
+      var c1 = {
+        template: `<div>
+            <p>我是c1组件</p>
+            <p v-if="c2data">接受c2组件的数据：{{ c2data }}</p>
+            </div>`,
+        props: [],
+        data(){
+          return{
+            c2data:''
+          }
+        },
+        methods: {
+         
+        },
+        mounted() {
+          bus.$on('toC1Data',msg => {
+            this.c2data = msg
+          })
+        },
+      }
+
+      var c2 = {
+        template: `<div>
+            <p>我是c2组件</p>
+            <button @click="toc1">点击传递数据给兄弟</button>
+            </div>`,
+        props: [],
+        data(){
+          return{
+            c2:'我是c2传来的哈哈哈'
+          }
+        },
+        methods: {
+          toc1(){
+            bus.$emit('toC1Data',this.c2)
+          },
+        }
+      }
+
+      var app = new Vue({
+        el: '#app',
+        // 定义局部组件，可定义多个 要加s
+        components: {
+          c1,
+          c2
+        },
+        data() {
+          return {}
+        },
+        methods: {}
+      })
+    </script>
+  </body>
+</html>

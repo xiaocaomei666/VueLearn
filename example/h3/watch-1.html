@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <title>Watch 选项 监控数据 -- 深度监视</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <link rel="icon" href="./vue_logo.png" />
+    <script src="../../assets/js/vue.js"></script>
+  </head>
+
+  <body>
+    <h1>Watch 选项 监控数据 -- 深度监视</h1>
+    <hr />
+    <div id="app">
+      <div v-for="(item,index) in clothArray" :key="index">
+        <p>{{ item.date }}温度：{{ item.temp }} ℃</p>
+        <p>穿衣建议：{{ item.cloth }}</p>
+        <button @click="addTemp(index)">升温1℃</button>
+      </div>
+    </div>
+    <script type="text/javascript">
+      var app = new Vue({
+        el: '#app',
+        data() {
+          return {
+            clothArray: [
+              {
+                date: '今天',
+                temp: 0,
+                cloth:'羽绒服'
+              },
+              {
+                date: '明日',
+                temp: 0,
+                cloth: '羽绒服'
+              }
+            ]
+          }
+        },
+        methods: {
+          addTemp(index) {
+            console.log(index)
+            this.clothArray[index].temp++
+          }
+        },
+        watch: {
+          clothArray: {
+            deep: true,
+            handler: function(newV, oldV) {
+              newV.forEach(item => {
+                if (item.temp > 30) {
+                  item.cloth = '短袖'
+                } else if (item.temp < 30 && item.temp > 10) {
+                  item.cloth = '夹克'
+                } else if (item.temp < 10) {
+                  item.cloth = '羽绒服'
+                }
+              })
+            }
+          }
+        }
+      })
+    </script>
+  </body>
+</html>

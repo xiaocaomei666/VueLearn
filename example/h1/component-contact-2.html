@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <title>组件嵌套多层：$attrs 和 $listeners</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <link rel="icon" href="./vue_logo.png" />
+    <script src="../../assets/js/vue.js"></script>
+  </head>
+  <body>
+    <h1>组件嵌套多层：$attrs 和 $listeners</h1>
+    <hr />
+    <div id="app">
+      <p>我是爷爷组件</p>
+      <ba :msg="msg" :msg2="msg2" v-on:send="getSonData"></ba>
+    </div>
+
+    <script type="text/javascript">
+      var son = {
+        template: `<div>
+            <p>我是son组件</p>
+            <p>接收爷爷组件的信息:{{ $attrs.msg2 }}</p>
+            <button @click="toApp">son组件传递内容给爷爷组件</button>
+            </div>`,
+        props: ['getMsg'],
+        methods: {
+          toApp() {
+            this.$emit('send', '我是son组件的内容')
+          }
+        }
+      }
+
+      var ba = {
+        template: `<div>
+            <p>我是baba组件</p>
+            <p>接收爷爷组件的信息:{{ $attrs.msg }}</p>
+            <son v-bind="$attrs" v-on="$listeners"></son>
+            </div>`,
+        methods: {},
+        components: {
+          son
+        },
+        inheritAttrs:true,
+      }
+
+      var app = new Vue({
+        el: '#app',
+        // 定义局部组件，可定义多个 要加s
+        components: {
+          ba
+        },
+        data() {
+          return {
+            msg:'爷爷组件传递给baba组件的内容',
+            msg2:'爷爷组件传递给son组件的内容'
+          }
+        },
+        methods: {
+          getSonData(e){
+            console.log('获取到son组件传递来的数据',e)
+          },
+        }
+      })
+    </script>
+  </body>
+</html>
